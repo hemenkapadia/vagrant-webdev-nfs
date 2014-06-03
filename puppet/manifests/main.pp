@@ -1,11 +1,14 @@
 # librarian-puppet would have downloaded and installed the required modules
 # now is the time to use them to install the required applications
 
+# Set path for exec
+Exec { path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/" ] }
+
+
 # Include apt first
 class { 'apt':
 	always_apt_update => false,
 }
-
 
 
 # add repos
@@ -18,7 +21,6 @@ apt::ppa { 'ppa:chris-lea/node.js': }  # nodejs
 exec { 'apt-update':
 	command 	=> 'apt-get update',
 }
-
 
 
 # Manage Oracle license
@@ -34,7 +36,6 @@ package { 'oracle-java7-set-default':
 }
 # Ensure Java ppa is added and then install the two packages
 Apt::Ppa['ppa:webupd8team/java'] -> Package['oracle-java7-installer'] -> Package['oracle-java7-set-default'] 
-
 
 
 # Install Maven after Oracle JDK 
@@ -62,7 +63,6 @@ export PATH=$PATH:$M2
 Apt::Ppa['ppa:natecarlson/maven3'] -> Package['maven3'] -> File['mvn_symlink'] -> File['mvn.sh']
 
 
-
 # Install nodejs, yeoman, grunt cli and bower
 package { 'nodejs':
   ensure  	=> 'installed',
@@ -77,7 +77,6 @@ package { 'yo':
 }
 
 
-
 #Install mongodb
 class {'::mongodb::globals':
   manage_package_repo => true,
@@ -85,9 +84,4 @@ class {'::mongodb::globals':
 class {'::mongodb::server': }
 class {'::mongodb::client': }
 Class['::mongodb::globals'] -> Class['::mongodb::server'] -> Class['::mongodb::client']
-
-
-
-
-
 
