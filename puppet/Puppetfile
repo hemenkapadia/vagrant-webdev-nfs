@@ -1,0 +1,11 @@
+# Reference - https://github.com/rodjek/librarian-puppet
+# librarian-puppet ensuures that these modules are provisioned on the guest
+# such that we can then use these modules in the puppet apply phase to get 
+# things done.
+
+forge "http://forge.puppetlabs.com"  # This was https - was that creating a problem 
+mod "puppetlabs/stdlib", "3.2.1"
+mod "puppetlabs/apt", "1.4.2"
+mod "puppetlabs/nodejs"
+mod "puppetlabs/mongodb"
+
