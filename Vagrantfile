@@ -12,7 +12,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
  
   config.vm.provider "virtualbox" do |vb|
 #		vb.gui = true   (uncomment to enable GUI on guest)
-    vb.customize ["modifyvm", :id, "--memory", "400"]   # 400 MB
+    vb.customize ["modifyvm", :id, "--memory", "512"]   # 512 MB
   end
 
 	config.vm.provision :shell, :path => 'shell/main.sh'

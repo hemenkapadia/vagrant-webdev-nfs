@@ -41,7 +41,7 @@ Apt::Ppa['ppa:webupd8team/java'] -> Package['oracle-java7-installer'] -> Package
 # Install Maven after Oracle JDK 
 package { 'maven3':
   ensure  	=> 'installed',
-  require 	=> Package['oracle-java7-installer'],
+  require 	=> Package['oracle-java7-set-default'],
 }
 # Create Maven symlink
 file { 'mvn_symlink':
@@ -67,14 +67,12 @@ Apt::Ppa['ppa:natecarlson/maven3'] -> Package['maven3'] -> File['mvn_symlink'] -
 package { 'nodejs':
   ensure  	=> 'installed',
 }
-#Ensure nodejs ppa is added befre trying to install
-Apt::Ppa['ppa:chris-lea/node.js'] -> Exec['apt-update'] -> Package['nodejs']
-# Install yeoman 
-package { 'yo':
-  ensure    => 'latest',
-  provider 	=> 'npm',
-  require		=> Package['nodejs'],
+# Install yeoman (since our npm version is > 1.2.10 we do not need to install grunt-cli and bower explicitly
+exec { 'install-yo':
+  command 	=> 'npm -g install yo',
 }
+#Ensure nodejs ppa is added befre trying to install nodejs and yeoman9
+Apt::Ppa['ppa:chris-lea/node.js'] -> Exec['apt-update'] -> Package['nodejs'] -> Exec['install-yo']
 
 
 #Install mongodb

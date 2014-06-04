@@ -43,7 +43,7 @@ Follow these commands to clone the vagrant-webdev repository on the `HOST`
 	cd projects
 	git clone https://hemenkapadia@bitbucket.org/hemenkapadiapublic/vagrant-webdev.git
 
-This will checkout the vagrant-webdev code from git on your machine and your directory structure would look like 
+This will clone the vagrant-webdev code from git on your machine and your directory structure would look like 
 
 	| Your home directory
 	|--- projects
@@ -61,7 +61,7 @@ Follow these commands to start the `HOST` machine
 	
 This step will take a long time to complete for the first time, so have some patience. 
 
-> For the first time, vagrant will download the Ubuntu base box (approx 300 MB) and provision it. During provisioning, it also downloads the Oracle JDK 7 installer (approx 150 MB) which also tames time depending on your internet connection. Be patient, as long as you do not see any error you should be good.
+> For the first time, vagrant will download the Ubuntu base box (approx 300 MB) and provision it. During provisioning, it also downloads the Oracle JDK 7 installer (approx 150 MB) which also takes time depending on your internet connection. Be patient, as long as you do not see any error you should be good.
 
 If the above step completed successfully you have a fully operational web development system ready at your disposal, with all the tools mentioned in the development stack above pre-installed for you.
 
@@ -73,13 +73,13 @@ To connect to your vagrant-webdev environment issue the command in the vagrant-w
 	
 This will open up a SSH session with the `HOST` and issue you a prompt as shown below
 
-	hemen@hemen-MXC061:~/projects/vagrant-webdev$ vagrant ssh
-	Welcome to Ubuntu 12.04 LTS (GNU/Linux 3.2.0-23-generic-pae i686)
+hemen@hemen-MXC061:~/projects/vagrant-webdev$ vagrant ssh
+Welcome to Ubuntu 12.04 LTS (GNU/Linux 3.2.0-23-generic-pae i686)
 
-	 * Documentation:  https://help.ubuntu.com/
-	Welcome to your Vagrant-built virtual machine.
-	Last login: Mon Jun  2 21:36:13 2014 from 10.0.2.2
-	vagrant@precise32:~$ cd 
+ * Documentation:  https://help.ubuntu.com/
+Welcome to your Vagrant-built virtual machine.
+Last login: Mon Jun  2 21:36:13 2014 from 10.0.2.2
+vagrant@precise32:~$ 
 
 Notice the change in the prompt. It indicates that you are now on the `HOST` box.
 
@@ -121,6 +121,9 @@ I use the following commands to ensure vagrant-webdev has been provisioned corre
 	vagrant@precise32:~$ mongod --version
 	db version v2.4.10
 	Tue Jun  3 21:45:37.791 git version: e3d78955d181e475345ebd60053a4738a4c5268a
+	vagrant@precise32:~$ yo -v
+	1.1.2
+	vagrant@precise32:~$ 
 	
 
 ## How can I contribute ?
@@ -150,7 +153,10 @@ The following long running branches will be there in the repository
 
 * __master__: This is the main branch, which will be used by most people who would want to use vagrant-webdev. As a result this should be extremely stable. No one should push code directly to master.
 * __develop__: This is the development branch, or can also be called as out integration branch. All contributors are requested to create their own feature branch using develop as a base branch.
-* __feature branches__: The feature branch is created by each developer to logically track individual features they are working on. Once the feature branch is working as expected it can be merged back into the develop branch. 
+
+In addition to the above long running branches, developers can create their own feature branches to track their development..
+
+* __feature branches__: The feature branch is created by each developer to logically track individual features they are working on. The naming convention to follow for a feature branch is __name_FEATURE__
 
 The developer is first required to pull the latest changes from remote to local develop branch, then have a local merge from develop to feature branch. Once the merged feature branch is working as expected, push it to BitBucket and from there initiate a Pull request to get the feature branch merged into the develop branch.
 
