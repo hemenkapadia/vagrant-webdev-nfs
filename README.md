@@ -27,9 +27,10 @@ Go ahead and get the following tools installed on your system (Referred to as `H
 
 > Note - If your `HOST` system is Linux or Mac OSX, I strongly recommend you to use [vagrant-webdev-nfs](https://bitbucket.org/hemenkapadiapublic/vagrant-webdev-nfs) repository. It uses nfs to overcome performance issues with virtualbox shared folders, used by vagrant-webdev. This issues supposedly does not happen when the `HOST` is Windows.
 
-To know more about NFS performance read:
+To know more about NFS performance read
+
 1. [Use NFS to speed up your Vagrant ](https://coderwall.com/p/uaohzg)
-2.  [NFS shared folders](http://friendsofvagrant.github.io/v1/docs/nfs.html)
+2. [NFS shared folders](http://friendsofvagrant.github.io/v1/docs/nfs.html)
 
 I also assume a directory structure as follows. So go ahead and create one as mentioned below
 
