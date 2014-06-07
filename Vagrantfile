@@ -8,7 +8,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 # config.vm.box_url = "http://files.vagrantup.com/precise32.box"
   
   config.vm.network "private_network", ip: "192.168.10.110"
-  config.vm.synced_folder "../vagrant-webdev-workspace", "/home/vagrant/workspace"
+  config.vm.synced_folder ".", "/vagrant", type: "nfs"
+  config.vm.synced_folder "../vagrant-webdev-workspace", "/home/vagrant/workspace", type: "nfs"
+  config.vm.synced_folder "../vagrant-webdev-m2", "/home/vagrant/m2", type: "nfs"
  
   config.vm.provider "virtualbox" do |vb|
 #		vb.gui = true   (uncomment to enable GUI on guest)

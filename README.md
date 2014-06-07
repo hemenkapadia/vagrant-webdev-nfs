@@ -1,6 +1,6 @@
-## What is vagrant-webdev ?
+## What is vagrant-webdev-nfs ?
 
-vagrant-webdev is a [Vagrant](http://www.vagrantup.com) based development box that can be used to quickly set-up a web development box.
+vagrant-webdev-nfs is a [Vagrant](http://www.vagrantup.com) based development box that can be used to quickly set-up a web development box. It is a fork of the [vagrant-webdev](https://bitbucket.org/hemenkapadiapublic/vagrant-webdev) project, but modified to use `nfs` to sync folders between `GUEST` and `HOST` systems rather than the default VirtualBox mechanism. `nfs` is said to provide approx 10 to 100 times better performance than the default VirtualBox one.
 
 ## What constitutes the development stack ?
 
@@ -13,9 +13,9 @@ The following forms the development stack
 5. yeoman stack
 6. mongodb
 
-## How do I start using vagrant-webdev?
+## How do I start using vagrant-webdev-nfs?
 
-The best part here is that you can use vagrant-webdev on Windows, Mac or any Linux environment, and the steps to do so are exactly the same.
+I recommend  you use vagrant-webdev-nfs Mac or any Linux environment. For Windows `HOST` systems I recommend using [vagrant-webdev](https://bitbucket.org/hemenkapadiapublic/vagrant-webdev).
 
 ### Step 1. System Set-up
 
@@ -24,16 +24,17 @@ Go ahead and get the following tools installed on your system (Referred to as `H
 1. [Git](http://git-scm.com/downloads)
 2. [Virtualbox](https://www.virtualbox.org/wiki/Downloads)
 3. [Vagrant](https://www.vagrantup.com/downloads.html)
-
-> I would recommend using the latest stable versions of these tools
+4. [nfs-kernel-server, nfs-common and portmap](https://coderwall.com/p/uaohzg)
 
 I also assume a directory structure as follows. So go ahead and create one as mentioned below
 
 	| Your home directory
 	|--- projects
 	|------ vagrant-webdev-workspace
+	|------ vagrant-webdev-m2
+	
 
-> vagrant-webdev-workspace is an important shared folder between your `GUEST` and `HOST`. This folder will contain our development code, such that you can use tools that you are comfortable with (IDE, Browser etc.) that are already installed on your `HOST` for development and testing, but use the `GUEST` for build and deployment. 
+> vagrant-webdev-workspace and vagrant-webdev-m2 are important shared folders between your `GUEST` and `HOST`. Workspace folder will contain our development code, such that you can use tools that you are comfortable with (IDE, Browser etc.) that are already installed on your `HOST` for development and testing, but use the `GUEST` for build and deployment. M2 folder is your maven repository, needed for depedency resolution in your IDE on `GUEST`.
 
 ### Step 2. Clone the BitBucket repository
 
@@ -41,14 +42,15 @@ Follow these commands to clone the vagrant-webdev repository on the `HOST`
 
 	cd ~
 	cd projects
-	git clone https://hemenkapadia@bitbucket.org/hemenkapadiapublic/vagrant-webdev.git
+	git clone https://hemenkapadia@bitbucket.org/hemenkapadiapublic/vagrant-webdev-nfs.git
 
-This will clone the vagrant-webdev code from git on your machine and your directory structure would look like 
+This will clone the vagrant-webdev-nfs code from git on your machine and your directory structure would look like 
 
 	| Your home directory
 	|--- projects
 	|------ vagrant-webdev-workspace
-	|------ vagrant-webdev
+	|------ vagrant-webdev-m2
+	|------ vagrant-webdev-nfs
 
 ### Step 3. Start the `HOST` machine
 
@@ -56,7 +58,7 @@ Follow these commands to start the `HOST` machine
 
 	cd ~
 	cd projects
-	cd vagrant-webdev
+	cd vagrant-webdev-nfs
 	vagrant up
 	
 This step will take a long time to complete for the first time, so have some patience. 
@@ -73,7 +75,7 @@ To connect to your vagrant-webdev environment issue the command in the vagrant-w
 	
 This will open up a SSH session with the `HOST` and issue you a prompt as shown below
 
-hemen@hemen-MXC061:~/projects/vagrant-webdev$ vagrant ssh
+hemen@hemen-MXC061:~/projects/vagrant-webdev-nfs$ vagrant ssh
 Welcome to Ubuntu 12.04 LTS (GNU/Linux 3.2.0-23-generic-pae i686)
 
  * Documentation:  https://help.ubuntu.com/
@@ -85,7 +87,7 @@ Notice the change in the prompt. It indicates that you are now on the `HOST` box
 
 I use the following commands to ensure vagrant-webdev has been provisioned correctly. Verify once you machine is up too.
 
-	hemen@hemen-MXC061:~/data/projects/vagrant-webdev$ vagrant ssh
+	hemen@hemen-MXC061:~/data/projects/vagrant-webdev-nfs$ vagrant ssh
 	Welcome to Ubuntu 12.04 LTS (GNU/Linux 3.2.0-23-generic-pae i686)
 
 	 * Documentation:  https://help.ubuntu.com/

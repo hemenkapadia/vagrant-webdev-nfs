@@ -60,7 +60,7 @@ export PATH=$PATH:$M2
 ',
 }
 # Ensure maven ppa is added and JDK installed. Then proceed to set symlink and env vars
-Apt::Ppa['ppa:natecarlson/maven3'] -> Package['maven3'] -> File['mvn_symlink'] -> File['mvn.sh']
+Apt::Ppa['ppa:natecarlson/maven3'] -> Package['maven3'] -> File['mvn_symlink'] -> File['mvn.sh'] -> Exec['update_maven_repo_path']
 
 
 # Install nodejs, yeoman, grunt cli and bower
@@ -82,4 +82,14 @@ class {'::mongodb::globals':
 class {'::mongodb::server': }
 class {'::mongodb::client': }
 Class['::mongodb::globals'] -> Class['::mongodb::server'] -> Class['::mongodb::client']
+
+
+# Update the maven repo in settings.xml
+# Ideally should be done with Augeas and XML lens but getting constant errors.
+# Implementing workaround for now using sed
+
+exec { 'update_maven_repo_path':
+	command		=> "sed -i '55i  <localRepository>/home/vagrant/m2</localRepository>' /usr/share/maven3/conf/settings.xml",
+}
+
 
