@@ -37,8 +37,9 @@ I also assume a directory structure as follows. So go ahead and create one as me
 	| Your home directory
 	|--- projects
 	|------ vagrant-webdev-workspace
+	|------ vagrant-ebdev=m2
 
-> vagrant-webdev-workspace is an important shared folder between your `GUEST` and `HOST`. This folder will contain our development code, such that you can use tools that you are comfortable with (IDE, Browser etc.) that are already installed on your `HOST` for development and testing, but use the `GUEST` for build and deployment. 
+> vagrant-webdev-workspace and vagrant-webdev-m2 are important shared folders between your `GUEST` and `HOST`. Workspace folder will contain our development code, such that you can use tools that you are comfortable with (IDE, Browser etc.) that are already installed on your `HOST` for development and testing, but use the `GUEST` for build and deployment. M2 folder is your maven repository, needed for depedency resolution in your IDE on `GUEST`.
 
 ### Step 2. Clone the BitBucket repository
 
@@ -53,6 +54,7 @@ This will clone the vagrant-webdev code from git on your machine and your direct
 	| Your home directory
 	|--- projects
 	|------ vagrant-webdev-workspace
+	|------ vagrant-webdev-m2
 	|------ vagrant-webdev
 
 ### Step 3. Start the `HOST` machine
