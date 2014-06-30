@@ -75,17 +75,18 @@ To connect to your vagrant-webdev environment issue the command in the vagrant-w
 	
 This will open up a SSH session with the `HOST` and issue you a prompt as shown below
 
-hemen@hemen-MXC061:~/projects/vagrant-webdev-nfs$ vagrant ssh
-Welcome to Ubuntu 12.04 LTS (GNU/Linux 3.2.0-23-generic-pae i686)
 
- * Documentation:  https://help.ubuntu.com/
-Welcome to your Vagrant-built virtual machine.
-Last login: Mon Jun  2 21:36:13 2014 from 10.0.2.2
-vagrant@precise32:~$ 
+	hemen@hemen-MXC061:~/projects/vagrant-webdev-nfs$ vagrant ssh
+	Welcome to Ubuntu 12.04 LTS (GNU/Linux 3.2.0-23-generic-pae i686)
+
+	 * Documentation:  https://help.ubuntu.com/
+	Welcome to your Vagrant-built virtual machine.
+	Last login: Mon Jun  2 21:36:13 2014 from 10.0.2.2
+	vagrant@precise32:~$ 
 
 Notice the change in the prompt. It indicates that you are now on the `HOST` box.
 
-I use the following commands to ensure vagrant-webdev has been provisioned correctly. Verify once you machine is up too.
+I use the following commands to ensure vagrant-webdev has been provisioned correctly. Verify once your machine is up too.
 
 	hemen@hemen-MXC061:~/data/projects/vagrant-webdev-nfs$ vagrant ssh
 	Welcome to Ubuntu 12.04 LTS (GNU/Linux 3.2.0-23-generic-pae i686)
@@ -134,7 +135,7 @@ The first and foremost requirement to contribute is to have a BitBucket account,
 
 > Currently, I do not plan to add other additional features to vagrant-webdev unless it is really value adding. 
 
-As a result of the above guideline, there are two options available for you contribute.
+As a result of the above guideline, there are two options available for you to contribute.
 
 * __Branch__: If you are planning to fix a bug in the current code or in general improving the way things are implemented, you need to create a Branch. In case you are planning to add new features or packages please do __NOT__ create a Branch. I discuss branching in more detail below.
 * __Fork__: If you intend to use vagrant-webdev as a base and then want to modify it (e.g. remove mongodb and add MySQL) or want to add additional packages then you need to create a Fork. That way none of the changes you make in your fork move to my repository, but there is a linkage maintained. You can continue working independently on your Fork which is identical to it's parent repository when you forked it.
@@ -153,15 +154,17 @@ We are using a subset of the Git workflow that is suggested in the first post.
 
 The following long running branches will be there in the repository
 
-* __master__: This is the main branch, which will be used by most people who would want to use vagrant-webdev. As a result this should be extremely stable. No one should push code directly to master.
-* __develop__: This is the development branch, or can also be called as out integration branch. All contributors are requested to create their own feature branch using develop as a base branch.
+* __master__: This is the main branch, which will be cloned by most people who would want to use vagrant-webdev. As a result this should be extremely stable. No one should push code directly to master.
+* __develop__: This is the development branch, or can also be called as our integration branch. All contributors are requested to create their own feature branch using develop as a base branch. Minor bug fixes can be directly submitted to develop.
 
-In addition to the above long running branches, developers can create their own feature branches to track their development..
+In addition to the above long running branches, developers should create their own feature branches to track their development..
 
-* __feature branches__: The feature branch is created by each developer to logically track individual features they are working on. The naming convention to follow for a feature branch is __name_FEATURE__
+* __feature branches__: The feature branch is created by each developer to logically track individual features they are working on. The naming convention to follow for a feature branch is __name_FEATURE__. A single developer can have more than one feature branch, if they are contributing to multiple featured simultaneously.
 
-The developer is first required to pull the latest changes from remote to local develop branch, then have a local merge from develop to feature branch. Once the merged feature branch is working as expected, push it to BitBucket and from there initiate a Pull request to get the feature branch merged into the develop branch.
+The developer is first required to pull the latest changes from remote to local develop branch, then have a local merge from develop to feature branch. Once the merged feature branch is working as expected, push it to BitBucket and from there initiate a Pull request to get the feature branch merged into the remote develop branch.
 
-After all the features planned for the next release are successfully merged into the develop branch, a pull request from the develop to master in remote will be initiated and that release will be tagged.
+After all the features are successfully merged into the develop branch, and everything is confirmed to be working, a pull request from the develop to master in remote will be initiated and that release will be tagged.
+
+Post merge to develop all feature branches are to be deleted.
 
 
