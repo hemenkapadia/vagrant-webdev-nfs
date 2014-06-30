@@ -9,6 +9,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   
   config.vm.network "private_network", ip: "192.168.10.110"
   config.vm.synced_folder "../vagrant-webdev-workspace", "/home/vagrant/workspace"
+  config.vm.synced_folder "../vagrant-webdev-m2", "/home/vagrant/m2"
  
   config.vm.provider "virtualbox" do |vb|
 #		vb.gui = true   (uncomment to enable GUI on guest)
