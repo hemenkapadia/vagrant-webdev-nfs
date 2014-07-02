@@ -11,9 +11,8 @@ class { 'apt':
 }
 
 
-# add repos
+# Add PPA repos. Removed maven repo as Trusty has maven3 by default.
 apt::ppa { 'ppa:webupd8team/java': }   # Oracle JDK 6/7/8
-apt::ppa { 'ppa:natecarlson/maven3': } # Apache Maven 3
 apt::ppa { 'ppa:chris-lea/node.js': }  # nodejs
 
 
@@ -35,32 +34,16 @@ package { 'oracle-java7-set-default':
 	ensure 		=> 'installed',
 }
 # Ensure Java ppa is added and then install the two packages
-Apt::Ppa['ppa:webupd8team/java'] -> Package['oracle-java7-installer'] -> Package['oracle-java7-set-default'] 
+Apt::Ppa['ppa:webupd8team/java'] -> Exec['apt-update'] -> Package['oracle-java7-installer'] -> Package['oracle-java7-set-default'] 
 
 
 # Install Maven after Oracle JDK 
-package { 'maven3':
+package { 'maven':
   ensure  	=> 'installed',
   require 	=> Package['oracle-java7-set-default'],
 }
-# Create Maven symlink
-file { 'mvn_symlink':
-	path 			=> '/usr/bin/mvn',
-	ensure 		=> 'link',
-	target 		=> '/usr/bin/mvn3',
-}
-# Setup Maven environment variable files for all users
-file { 'mvn.sh':
-	ensure 		=> 'file',
-	path 			=> '/etc/profile.d/mvn.sh',
-	mode			=> 0644,
-	content		=> 'export M2_HOME=/usr/share/maven3
-export M2=$M2_HOME/bin
-export PATH=$PATH:$M2
-',
-}
-# Ensure maven ppa is added and JDK installed. Then proceed to set symlink and env vars
-Apt::Ppa['ppa:natecarlson/maven3'] -> Package['maven3'] -> File['mvn_symlink'] -> File['mvn.sh'] -> Exec['update_maven_repo_path']
+# Ensure maven is installed after JDK. Once Maven is installed configure the local m2 repo path.
+Package['maven'] -> Exec['update_maven_repo_path']
 
 
 # Install nodejs, yeoman, grunt cli and bower
@@ -79,9 +62,8 @@ Apt::Ppa['ppa:chris-lea/node.js'] -> Exec['apt-update'] -> Package['nodejs'] -> 
 class {'::mongodb::globals':
   manage_package_repo => true,
 }
-class {'::mongodb::server': }
-class {'::mongodb::client': }
-Class['::mongodb::globals'] -> Class['::mongodb::server'] -> Class['::mongodb::client']
+class {'::mongodb::server': }  # client is part of the server package, hence removed
+Class['::mongodb::globals'] -> Class['::mongodb::server']
 
 
 # Update the maven repo in settings.xml
@@ -89,6 +71,5 @@ Class['::mongodb::globals'] -> Class['::mongodb::server'] -> Class['::mongodb::c
 # Implementing workaround for now using sed
 
 exec { 'update_maven_repo_path':
-	command		=> "sed -i '55i  <localRepository>/home/vagrant/m2</localRepository>' /usr/share/maven3/conf/settings.xml",
+	command		=> "sed -i '55i  <localRepository>/home/vagrant/m2</localRepository>' /usr/share/maven/conf/settings.xml",
 }
-
