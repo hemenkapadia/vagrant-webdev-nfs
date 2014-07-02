@@ -2,11 +2,13 @@
 
 vagrant-webdev-nfs is a [Vagrant](http://www.vagrantup.com) based development box that can be used to quickly set-up a web development box. It is a fork of the [vagrant-webdev](https://bitbucket.org/hemenkapadiapublic/vagrant-webdev) project, but modified to use `nfs` to sync folders between `GUEST` and `HOST` systems rather than the default VirtualBox mechanism. `nfs` is said to provide approx 10 to 100 times better performance than the default VirtualBox one.
 
+Use vagrant-webdev-nfs if your `HOST` operating system is a Linux\Unix based system. If your `HOST` operating system is Windows then use vagrant-webdev instead.
+
 ## What constitutes the development stack ?
 
 The following forms the development stack
 
-1. Ubuntu 12.04 (Precise Pangolin) 32 bit base box.  (Referred to as `GUEST` throughout the document)
+1. Ubuntu 14.04 (Trusty Thar) 32 bit base box.  (Referred to as `GUEST` throughout the document)
 2. Oracle JDK 7
 3. Apache Maven
 4. Nodejs and NPM
@@ -15,7 +17,7 @@ The following forms the development stack
 
 ## How do I start using vagrant-webdev-nfs?
 
-I recommend  you use vagrant-webdev-nfs Mac or any Linux environment. For Windows `HOST` systems I recommend using [vagrant-webdev](https://bitbucket.org/hemenkapadiapublic/vagrant-webdev).
+I recommend  you use vagrant-webdev-nfs on Mac or any Linux\Unix environment. For Windows `HOST` systems I recommend using [vagrant-webdev](https://bitbucket.org/hemenkapadiapublic/vagrant-webdev).
 
 ### Step 1. System Set-up
 
@@ -26,13 +28,17 @@ Go ahead and get the following tools installed on your system (Referred to as `H
 3. [Vagrant](https://www.vagrantup.com/downloads.html)
 4. [nfs-kernel-server, nfs-common and portmap](https://coderwall.com/p/uaohzg)
 
+To know more about NFS performance read
+
+1. [Use NFS to speed up your Vagrant ](https://coderwall.com/p/uaohzg)
+2. [NFS shared folders](http://friendsofvagrant.github.io/v1/docs/nfs.html)
+
 I also assume a directory structure as follows. So go ahead and create one as mentioned below
 
 	| Your home directory
 	|--- projects
 	|------ vagrant-webdev-workspace
 	|------ vagrant-webdev-m2
-	
 
 > vagrant-webdev-workspace and vagrant-webdev-m2 are important shared folders between your `GUEST` and `HOST`. Workspace folder will contain our development code, such that you can use tools that you are comfortable with (IDE, Browser etc.) that are already installed on your `HOST` for development and testing, but use the `GUEST` for build and deployment. M2 folder is your maven repository, needed for depedency resolution in your IDE on `GUEST`.
 
@@ -75,59 +81,62 @@ To connect to your vagrant-webdev environment issue the command in the vagrant-w
 	
 This will open up a SSH session with the `HOST` and issue you a prompt as shown below
 
-
 	hemen@hemen-MXC061:~/projects/vagrant-webdev-nfs$ vagrant ssh
-	Welcome to Ubuntu 12.04 LTS (GNU/Linux 3.2.0-23-generic-pae i686)
+  Welcome to Ubuntu 14.04 LTS (GNU/Linux 3.13.0-30-generic i686)
 
-	 * Documentation:  https://help.ubuntu.com/
-	Welcome to your Vagrant-built virtual machine.
-	Last login: Mon Jun  2 21:36:13 2014 from 10.0.2.2
-	vagrant@precise32:~$ 
+   * Documentation:  https://help.ubuntu.com/
+
+   System information disabled due to load higher than 1.0
+
+    Get cloud support with Ubuntu Advantage Cloud Guest:
+      http://www.ubuntu.com/business/services/cloud
+
+  0 packages can be updated.
+  0 updates are security updates.
+
+  vagrant@vagrant-ubuntu-trusty-32:~$ 
 
 Notice the change in the prompt. It indicates that you are now on the `HOST` box.
 
 I use the following commands to ensure vagrant-webdev has been provisioned correctly. Verify once your machine is up too.
 
-	hemen@hemen-MXC061:~/data/projects/vagrant-webdev-nfs$ vagrant ssh
-	Welcome to Ubuntu 12.04 LTS (GNU/Linux 3.2.0-23-generic-pae i686)
-
-	 * Documentation:  https://help.ubuntu.com/
-	Welcome to your Vagrant-built virtual machine.
-	Last login: Fri Sep 14 06:22:31 2012 from 10.0.2.2
-	vagrant@precise32:~$ env | grep java
-	DERBY_HOME=/usr/lib/jvm/java-7-oracle/db
-	PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/lib/jvm/java-7-oracle/bin:/usr/lib/jvm/java-7-oracle/db/bin:/usr/lib/jvm/java-7-oracle/jre/bin:/usr/share/maven3/bin:/opt/vagrant_ruby/bin
-	JAVA_HOME=/usr/lib/jvm/java-7-oracle
-	NODE_PATH=/usr/lib/nodejs:/usr/lib/node_modules:/usr/share/javascript
-	J2SDKDIR=/usr/lib/jvm/java-7-oracle
-	J2REDIR=/usr/lib/jvm/java-7-oracle/jre
-	vagrant@precise32:~$ env | grep M2
-	M2=/usr/share/maven3/bin
-	M2_HOME=/usr/share/maven3
-	vagrant@precise32:~$ mvn -version
-	Apache Maven 3.2.1 (ea8b2b07643dbb1b84b6d16e1f08391b666bc1e9; 2014-02-14T17:37:52+00:00)
-	Maven home: /usr/share/maven3
-	Java version: 1.7.0_60, vendor: Oracle Corporation
-	Java home: /usr/lib/jvm/java-7-oracle/jre
-	Default locale: en_US, platform encoding: ISO-8859-1
-	OS name: "linux", version: "3.2.0-23-generic-pae", arch: "i386", family: "unix"
-	vagrant@precise32:~$ java -version
-	java version "1.7.0_60"
-	Java(TM) SE Runtime Environment (build 1.7.0_60-b19)
-	Java HotSpot(TM) Client VM (build 24.60-b09, mixed mode)
-	vagrant@precise32:~$ node -v
-	v0.10.28
-	vagrant@precise32:~$ npm -v 
-	1.4.9
-	vagrant@precise32:~$ mongo --version
-	MongoDB shell version: 2.4.10
-	vagrant@precise32:~$ mongod --version
-	db version v2.4.10
-	Tue Jun  3 21:45:37.791 git version: e3d78955d181e475345ebd60053a4738a4c5268a
-	vagrant@precise32:~$ yo -v
-	1.1.2
-	vagrant@precise32:~$ 
-	
+  vagrant@vagrant-ubuntu-trusty-32:~$ java -version
+  java version "1.7.0_60"
+  Java(TM) SE Runtime Environment (build 1.7.0_60-b19)
+  Java HotSpot(TM) Client VM (build 24.60-b09, mixed mode)
+  vagrant@vagrant-ubuntu-trusty-32:~$ mvn -version
+  Apache Maven 3.0.5
+  Maven home: /usr/share/maven
+  Java version: 1.7.0_60, vendor: Oracle Corporation
+  Java home: /usr/lib/jvm/java-7-oracle/jre
+  Default locale: en_US, platform encoding: UTF-8
+  OS name: "linux", version: "3.13.0-30-generic", arch: "i386", family: "unix"
+  vagrant@vagrant-ubuntu-trusty-32:~$ mongod -version
+  db version v2.4.10
+  Wed Jul  2 17:10:54.326 git version: e3d78955d181e475345ebd60053a4738a4c5268a
+  vagrant@vagrant-ubuntu-trusty-32:~$ mongo -version
+  MongoDB shell version: 2.4.10
+  vagrant@vagrant-ubuntu-trusty-32:~$ node -v
+  v0.10.29
+  vagrant@vagrant-ubuntu-trusty-32:~$ npm -v
+  1.4.14
+  vagrant@vagrant-ubuntu-trusty-32:~$ yo -v
+  [?] ==========================================================================
+  We're constantly looking for ways to make yo better!
+  May we anonymously report usage statistics to improve the tool over time?
+  More info: https://github.com/yeoman/insight & http://yeoman.io
+  ==========================================================================: No
+  1.2.0
+  vagrant@vagrant-ubuntu-trusty-32:~$ env | grep java
+  DERBY_HOME=/usr/lib/jvm/java-7-oracle/db
+  PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/jvm/java-7-oracle/bin:/usr/
+  lib/jvm/java-7-oracle/db/bin:/usr/lib/jvm/java-7-oracle/jre/bin
+  JAVA_HOME=/usr/lib/jvm/java-7-oracle
+  NODE_PATH=/usr/lib/nodejs:/usr/lib/node_modules:/usr/share/javascript
+  J2SDKDIR=/usr/lib/jvm/java-7-oracle
+  J2REDIR=/usr/lib/jvm/java-7-oracle/jre
+  vagrant@vagrant-ubuntu-trusty-32:~$ env | grep maven
+  vagrant@vagrant-ubuntu-trusty-32:~$ 	
 
 ## How can I contribute ?
 
