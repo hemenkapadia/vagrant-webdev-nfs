@@ -3,8 +3,8 @@
 # such that we can then use these modules in the puppet apply phase to get 
 # things done.
 
-forge "http://forge.puppetlabs.com"  # This was https - was that creating a problem 
-mod "puppetlabs/stdlib", "3.2.1"
-mod "puppetlabs/apt", "1.4.2"
+forge "https://forgeapi.puppetlabs.com" 
+mod "puppetlabs/stdlib"
+mod "puppetlabs/apt"
 mod "puppetlabs/mongodb"
 
