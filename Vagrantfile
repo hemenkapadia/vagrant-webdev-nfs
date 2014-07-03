@@ -15,6 +15,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provider "virtualbox" do |vb|
 #	  vb.gui = true   (uncomment to enable GUI on guest)
     vb.customize ["modifyvm", :id, "--memory", "512"]   # 512 MB
+    vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]   # to allow internet access on host.
   end
 
   config.vm.provision :shell, :path => 'shell/main.sh'
