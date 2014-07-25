@@ -80,65 +80,64 @@ To connect to your vagrant-webdev environment issue the command in the vagrant-w
 	
 This will open up a SSH session with the `HOST` and issue you a prompt as shown below
 
-  hekapadi@HEKAPADI-W7-1 ~/Workspaces/Personal/vagrant-webdev (develop)
-  $ vagrant ssh
-  Welcome to Ubuntu 14.04 LTS (GNU/Linux 3.13.0-30-generic i686)
+	hekapadi@HEKAPADI-W7-1 ~/Workspaces/Personal/vagrant-webdev (develop)
+	$ vagrant ssh
+	Welcome to Ubuntu 14.04 LTS (GNU/Linux 3.13.0-30-generic i686)
 
-   * Documentation:  https://help.ubuntu.com/
+	 * Documentation:  https://help.ubuntu.com/
 
-   System information disabled due to load higher than 1.0
+	 System information disabled due to load higher than 1.0
 
-    Get cloud support with Ubuntu Advantage Cloud Guest:
-      http://www.ubuntu.com/business/services/cloud
+		Get cloud support with Ubuntu Advantage Cloud Guest:
+			http://www.ubuntu.com/business/services/cloud
 
-  0 packages can be updated.
-  0 updates are security updates.
+	0 packages can be updated.
+	0 updates are security updates.
 
 
-  vagrant@vagrant-ubuntu-trusty-32:~$
-
+	vagrant@vagrant-ubuntu-trusty-32:~$
 
 Notice the change in the prompt. It indicates that you are now on the `HOST` box.
 
 I use the following commands to ensure vagrant-webdev has been provisioned correctly. Verify once your machine is up too.
 
-  vagrant@vagrant-ubuntu-trusty-32:~$ java -version
-  java version "1.7.0_60"
-  Java(TM) SE Runtime Environment (build 1.7.0_60-b19)
-  Java HotSpot(TM) Client VM (build 24.60-b09, mixed mode)
-  vagrant@vagrant-ubuntu-trusty-32:~$ mvn -version
-  Apache Maven 3.0.5
-  Maven home: /usr/share/maven
-  Java version: 1.7.0_60, vendor: Oracle Corporation
-  Java home: /usr/lib/jvm/java-7-oracle/jre
-  Default locale: en_US, platform encoding: UTF-8
-  OS name: "linux", version: "3.13.0-30-generic", arch: "i386", family: "unix"
-  vagrant@vagrant-ubuntu-trusty-32:~$ mongod -version
-  db version v2.4.10
-  Wed Jul  2 17:10:54.326 git version: e3d78955d181e475345ebd60053a4738a4c5268a
-  vagrant@vagrant-ubuntu-trusty-32:~$ mongo -version
-  MongoDB shell version: 2.4.10
-  vagrant@vagrant-ubuntu-trusty-32:~$ node -v
-  v0.10.29
-  vagrant@vagrant-ubuntu-trusty-32:~$ npm -v
-  1.4.14
-  vagrant@vagrant-ubuntu-trusty-32:~$ yo -v
-  [?] ==========================================================================
-  We're constantly looking for ways to make yo better!
-  May we anonymously report usage statistics to improve the tool over time?
-  More info: https://github.com/yeoman/insight & http://yeoman.io
-  ==========================================================================: No
-  1.2.0
-  vagrant@vagrant-ubuntu-trusty-32:~$ env | grep java
-  DERBY_HOME=/usr/lib/jvm/java-7-oracle/db
-  PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/jvm/java-7-oracle/bin:/usr/
-  lib/jvm/java-7-oracle/db/bin:/usr/lib/jvm/java-7-oracle/jre/bin
-  JAVA_HOME=/usr/lib/jvm/java-7-oracle
-  NODE_PATH=/usr/lib/nodejs:/usr/lib/node_modules:/usr/share/javascript
-  J2SDKDIR=/usr/lib/jvm/java-7-oracle
-  J2REDIR=/usr/lib/jvm/java-7-oracle/jre
-  vagrant@vagrant-ubuntu-trusty-32:~$ env | grep maven
-  vagrant@vagrant-ubuntu-trusty-32:~$
+	vagrant@vagrant-ubuntu-trusty-32:~$ java -version
+	java version "1.7.0_60"
+	Java(TM) SE Runtime Environment (build 1.7.0_60-b19)
+	Java HotSpot(TM) Client VM (build 24.60-b09, mixed mode)
+	vagrant@vagrant-ubuntu-trusty-32:~$ mvn -version
+	Apache Maven 3.0.5
+	Maven home: /usr/share/maven
+	Java version: 1.7.0_60, vendor: Oracle Corporation
+	Java home: /usr/lib/jvm/java-7-oracle/jre
+	Default locale: en_US, platform encoding: UTF-8
+	OS name: "linux", version: "3.13.0-30-generic", arch: "i386", family: "unix"
+	vagrant@vagrant-ubuntu-trusty-32:~$ mongod -version
+	db version v2.4.10
+	Wed Jul  2 17:10:54.326 git version: e3d78955d181e475345ebd60053a4738a4c5268a
+	vagrant@vagrant-ubuntu-trusty-32:~$ mongo -version
+	MongoDB shell version: 2.4.10
+	vagrant@vagrant-ubuntu-trusty-32:~$ node -v
+	v0.10.29
+	vagrant@vagrant-ubuntu-trusty-32:~$ npm -v
+	1.4.14
+	vagrant@vagrant-ubuntu-trusty-32:~$ yo -v
+	[?] ==========================================================================
+	We're constantly looking for ways to make yo better!
+	May we anonymously report usage statistics to improve the tool over time?
+	More info: https://github.com/yeoman/insight & http://yeoman.io
+	==========================================================================: No
+	1.2.0
+	vagrant@vagrant-ubuntu-trusty-32:~$ env | grep java
+	DERBY_HOME=/usr/lib/jvm/java-7-oracle/db
+	PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/jvm/java-7-oracle/bin:/usr/
+	lib/jvm/java-7-oracle/db/bin:/usr/lib/jvm/java-7-oracle/jre/bin
+	JAVA_HOME=/usr/lib/jvm/java-7-oracle
+	NODE_PATH=/usr/lib/nodejs:/usr/lib/node_modules:/usr/share/javascript
+	J2SDKDIR=/usr/lib/jvm/java-7-oracle
+	J2REDIR=/usr/lib/jvm/java-7-oracle/jre
+	vagrant@vagrant-ubuntu-trusty-32:~$ env | grep maven
+	vagrant@vagrant-ubuntu-trusty-32:~$
 	
   
 ## How can I contribute ?
@@ -167,16 +166,25 @@ We are using a subset of the Git workflow that is suggested in the first post.
 The following long running branches will be there in the repository
 
 * __master__: This is the main branch, which will be cloned by most people who would want to use vagrant-webdev. As a result this should be extremely stable. No one should push code directly to master.
-* __develop__: This is the development branch, or can also be called as our integration branch. All contributors are requested to create their own feature branch using develop as a base branch. Minor bug fixes can be directly submitted to develop.
+* __develop__: This is the development branch, or can also be called as our integration branch. The develop branch will form the base for any feature branches created. Only Minor bug fixes can be directly submitted to develop. Do not submit features directly to the develop branch. Use the feature branch instead. The develop branch is used to integrate various features being developed simultaneously in the features branches.
 
 In addition to the above long running branches, developers should create their own feature branches to track their development..
 
-* __feature branches__: The feature branch is created by each developer to logically track individual features they are working on. The naming convention to follow for a feature branch is __name_FEATURE__. A single developer can have more than one feature branch, if they are contributing to multiple featured simultaneously.
+* __feature branches__: A single feature branch is created to logically track an individual feature being developed, on which multiple developers could be working. The naming convention to follow for a feature branch is __FEATURE_NAME__. A single developer can work on more than one feature. I suggest each developer follow the below process to contribute to features.
 
-The developer is first required to pull the latest changes from remote to local develop branch, then have a local merge from develop to feature branch. Once the merged feature branch is working as expected, push it to BitBucket and from there initiate a Pull request to get the feature branch merged into the remote develop branch.
+1. Create a new feature branch (if one does not exist) or if someone has already created one on the remote, get it locally.
+2. Ensure you pull the latest changes from this remote feature branch to your local feature branch periodically (typically every couple of days).
+3. If the pull results in a conflict, ensure that you resolve the same in the local feature branch.
+4. Periodically also pull the latest develop branch for any bug fixes that have been made to it.
+5. Merge the bug fixes from local develop to your local feature branch.
+6. At this point you local feature branch should contain all bug fixes made to develop, any changes made by other developers to the feature branch, and your changes to the feature branch.
+7. Ensure that the code builds correctly and all test cases pass.
+8. If all looks good, commit your changes to your local feature branch and then push those changes to the remote feature branch.
+9. Request that the feature be included in the develop branch by initiating a pull request.
 
-After all the features are successfully merged into the develop branch, and everything is confirmed to be working, a pull request from the develop to master in remote will be initiated and that release will be tagged.
 
-Post merge to develop all feature branches are to be deleted.
+After multiple features are successfully merged into the develop branch, and everything is confirmed to be working, a pull request from the develop to master in remote will be initiated and that release will be tagged.
+
+The feature branches will be deleted once they are merged into develop.
 
 
