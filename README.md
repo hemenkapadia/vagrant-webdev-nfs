@@ -1,6 +1,6 @@
 ## What is vagrant-webdev ?
 
-vagrant-webdev is a [Vagrant](http://www.vagrantup.com) based development box that can be used to quickly set-up a web development box.
+vagrant-webdev is a [Vagrant](http://www.vagrantup.com) based development box that can be used to quickly set-up a web development environment.
 
 ## What constitutes the development stack ?
 
@@ -39,17 +39,21 @@ I also assume a directory structure as follows. So go ahead and create one as me
 	|------ vagrant-webdev-workspace
 	|------ vagrant-webdev-m2
 
-> vagrant-webdev-workspace and vagrant-webdev-m2 are important shared folders between your `GUEST` and `HOST`. Workspace folder will contain our development code, such that you can use tools that you are comfortable with (IDE, Browser etc.) that are already installed on your `HOST` for development and testing, but use the `GUEST` for build and deployment. M2 folder is your maven repository, needed for depedency resolution in your IDE on `GUEST`.
+> vagrant-webdev-workspace and vagrant-webdev-m2 are important shared folders between your `GUEST` and `HOST`.
 
-### Step 2. Clone the BitBucket repository
+> Workspace folder will contain your development code, such that you can use tools that you are comfortable with (IDE, Browser etc.) on your `HOST` for development and testing. The code that you develop will then be built and deployed on the `GUEST` environment.
+
+>M2 folder is your maven repository, needed for dependency resolution in your IDE on `HOST` as well as for building on `GUEST`.
+
+### Step 2. Clone the GitHub repository
 
 Follow these commands to clone the vagrant-webdev repository on the `HOST`
 
 	cd ~
 	cd projects
-	git clone https://hemenkapadia@bitbucket.org/hemenkapadiapublic/vagrant-webdev.git
+	git clone https://github.com/hemenkapadia/vagrant-webdev.git
 
-This will clone the vagrant-webdev code from git on your machine and your directory structure would look like 
+This will clone the vagrant-webdev code from GitHub to your `HOST` machine and your directory structure would look like 
 
 	| Your home directory
 	|--- projects
@@ -57,9 +61,9 @@ This will clone the vagrant-webdev code from git on your machine and your direct
 	|------ vagrant-webdev-m2
 	|------ vagrant-webdev
 
-### Step 3. Start the `HOST` machine
+### Step 3. Start the `GUEST` machine
 
-Follow these commands to start the `HOST` machine 
+Follow these commands to start the `GUEST` machine as a virtual machine running in your `HOST` environment
 
 	cd ~
 	cd projects
@@ -72,13 +76,13 @@ This step will take a long time to complete for the first time, so have some pat
 
 If the above step completed successfully you have a fully operational web development system ready at your disposal, with all the tools mentioned in the development stack above pre-installed for you.
 
-### Step 4. Connect to the `HOST` and verify
+### Step 4. Connect to the `GUEST` and verify
 
-To connect to your vagrant-webdev environment issue the command in the vagrant-webdev directory
+To connect to your vagrant-webdev development environment issue the command in the vagrant-webdev directory
 
 	vagrant ssh
 	
-This will open up a SSH session with the `HOST` and issue you a prompt as shown below
+This will open up a SSH session with the `GUEST` and issue you a prompt as shown below
 
 	hekapadi@HEKAPADI-W7-1 ~/Workspaces/Personal/vagrant-webdev (develop)
 	$ vagrant ssh
@@ -97,7 +101,7 @@ This will open up a SSH session with the `HOST` and issue you a prompt as shown 
 
 	vagrant@vagrant-ubuntu-trusty-32:~$
 
-Notice the change in the prompt. It indicates that you are now on the `HOST` box.
+Notice the change in the prompt. It indicates that you are now on the `GUEST` box.
 
 I use the following commands to ensure vagrant-webdev has been provisioned correctly. Verify once your machine is up too.
 
@@ -142,49 +146,58 @@ I use the following commands to ensure vagrant-webdev has been provisioned corre
   
 ## How can I contribute ?
 
-The first and foremost requirement to contribute is to have a BitBucket account, so as a first step please [register with BitBucket](https://bitbucket.org/).
+### Branch or Fork ?
+
+The first and foremost requirement to contribute is to have a GitHub account, so as a first step please [register with GitHub](https://github.com/).
 
 > Currently, I do not plan to add other additional features to vagrant-webdev unless it is really value adding. 
 
 As a result of the above guideline, there are two options available for you to contribute.
 
-* __Branch__: If you are planning to fix a bug in the current code or in general improving the way things are implemented, you need to create a Branch. In case you are planning to add new features or packages please do __NOT__ create a Branch. I discuss branching in more detail below.
-* __Fork__: If you intend to use vagrant-webdev as a base and then want to modify it (e.g. remove mongodb and add MySQL) or want to add additional packages then you need to create a Fork. That way none of the changes you make in your fork move to my repository, but there is a linkage maintained. You can continue working independently on your Fork which is identical to it's parent repository when you forked it.
+* __Branch__: If you are planning to fix a bug in the current code or in general improving the way things are implemented, without adding new features, you need to create a Branch. In case you are planning to add new features or packages please do __NOT__ create a Branch, but create a Fork. I discuss branching in more detail below.
+* __Fork__: If you intend to use vagrant-webdev as a base and then want to modify it (e.g. remove mongodb and add MySQL) or want to add additional packages, then you need to create a Fork. That way none of the changes you make in your fork move to my repository, but there is a linkage maintained. You can continue working independently on your Fork which is identical to it's parent repository when you forked it.
 
-### Branching Strategy.
+### Git Flow.
 
-I strongly recommend reading the following 
+If you are new to Git, then I strongly recommend reading the following in order before you proceed to contribute to the repository.
 
-* [A successful Git branching model](http://nvie.com/posts/a-successful-git-branching-model/)
-* [Branching chapter](https://www.atlassian.com/git/tutorial/git-branches)
-* [Git Workflows chapter](https://www.atlassian.com/git/workflows)
+* [Git Branching chapter](https://www.atlassian.com/git/tutorial/git-branches)
+* [Git Workflows chapter](https://www.atlassian.com/git/tutorials/comparing-workflows/)
+* [Vincent Driessen's - A successful Git branching model](http://nvie.com/posts/a-successful-git-branching-model/)
+* [A cheatsheet for Vincent's branching model](http://www.marvinlabs.com/wp-content/uploads/2013/06/git-flow-cheatsheet.pdf)
+* [Gitflow 
 
-before you proceed to contribute to the repository.
-
-We are using a subset of the Git workflow that is suggested in the first post.
-
-The following long running branches will be there in the repository
-
-* __master__: This is the main branch, which will be cloned by most people who would want to use vagrant-webdev. As a result this should be extremely stable. No one should push code directly to master.
-* __develop__: This is the development branch, or can also be called as our integration branch. The develop branch will form the base for any feature branches created. Only Minor bug fixes can be directly submitted to develop. Do not submit features directly to the develop branch. Use the feature branch instead. The develop branch is used to integrate various features being developed simultaneously in the features branches.
-
-In addition to the above long running branches, developers should create their own feature branches to track their development..
-
-* __feature branches__: A single feature branch is created to logically track an individual feature being developed, on which multiple developers could be working. The naming convention to follow for a feature branch is __FEATURE_NAME__. A single developer can work on more than one feature. I suggest each developer follow the below process to contribute to features.
-
-1. Create a new feature branch (if one does not exist) or if someone has already created one on the remote, get it locally.
-2. Ensure you pull the latest changes from this remote feature branch to your local feature branch periodically (typically every couple of days).
-3. If the pull results in a conflict, ensure that you resolve the same in the local feature branch.
-4. Periodically also pull the latest develop branch for any bug fixes that have been made to it.
-5. Merge the bug fixes from local develop to your local feature branch.
-6. At this point you local feature branch should contain all bug fixes made to develop, any changes made by other developers to the feature branch, and your changes to the feature branch.
-7. Ensure that the code builds correctly and all test cases pass.
-8. If all looks good, commit your changes to your local feature branch and then push those changes to the remote feature branch.
-9. Request that the feature be included in the develop branch by initiating a pull request.
+The branching model suggested by Vincent is excellent and strongly recommended in any Enterprise development scenario. If you are interested in implementing the same I suggest you also read about [git-flow - a plugin that makes it much easier to follow Vincent's approach](http://danielkummer.github.io/git-flow-cheatsheet/)
 
 
-After multiple features are successfully merged into the develop branch, and everything is confirmed to be working, a pull request from the develop to master in remote will be initiated and that release will be tagged.
+### GitHub Flow
 
-The feature branches will be deleted once they are merged into develop.
+However for this project (and possibly all my other repositories) I would use only a subset of the workflow suggested by Vincent. 
+
+Read the below two articles completely
+
+* [GitHub flow](https://guides.github.com/introduction/flow/)
+* [Comparision of Git flow and GitHub flow](http://nicoespeon.com/en/2013/08/which-git-workflow-for-my-project/)
+
+Our repository will have a single long running branch
+
+* __master__: This is the main branch, and is expected to be extremely stable. This branch will be cloned by most people who would want to start using vagrant-webdev, hence the stability requirement. It is recommended not to push directly to master unless the change is extremely small and you are sure it will not impact anything and have thoroughly tested it. I would still recommend not to push directly to master.
+
+If there is a new feature we would agree to add, then we would create a new feature branch to track that development
+
+* __feature branches__: A single feature branch is created to logically track an individual feature being developed, on which multiple developers could be working. The naming convention to follow for a feature branch is __feature_name__. A single developer can work on more than one feature.
+
+#### GitHub Flow steps
+
+I suggest each developer follow the below process to contribute new features
+
+1. Create a new feature branch locally as well as on the remote (if it does not exists). Creating on remote is very important because you would want to collaborate with others who would want to work on the same feature. Additionally it would also avoid work duplication. Feature branch is created from master.
+2. Develop on your local feature branch, and push frequently to the remote feature branch.
+3. Periodically monitor any changes made to master after you created the feature branch from master in step 1 above. If there are any changes, merge them to your feature branch.
+4. Once feature is complete and tested to be working fine, open a pull request for merging back to master.
+5. A code review process will follow.
+6. Post successful code review the new feature branch will be merged into master.
+7. The feature branch will be deleted on remote, and ideally should be deleted locally too.
 
 
+That's it. Feel free to participate.
